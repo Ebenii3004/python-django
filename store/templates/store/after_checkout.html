@@ -1,0 +1,64 @@
+
+
+{% extends 'store/main.html' %}
+
+{% block content %}
+<style>
+    .success-container {
+        max-width: 700px;
+        margin: 50px auto;
+        background: linear-gradient(to right, #e0f7fa, #fff);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .success-container h2 {
+        color: #2e7d32;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .success-container p {
+        font-size: 1.1rem;
+        margin: 8px 0;
+        color: #333;
+    }
+
+    .btn-success {
+        display: block;
+        margin: 30px auto 0 auto;
+        padding: 10px 25px;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #43cea2, #185a9d);
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background: linear-gradient(45deg, #2ecc71, #3498db);
+        color: #fff;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="success-container box-element" style="text-align: center;">
+    <h2>Đặt hàng thành công </h2>
+    <p>Tên khách hàng: {{ user.first_name }} {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Số nhà: {{ address }}</p>
+    <p>Quận: {{ state }}</p>
+    <p>Thành phố: {{ city }}</p>
+    <p>Số điện thoại: {{ phone }}</p>
+    <h2>Cảm ơn đã mua hàng tại cửa hàng của chúng tôi, {{ user.last_name }}!</h2>
+    <p>Email xác nhận đơn hàng đã được gửi đến {{ user.email }}</p>
+    <a class="btn btn-success" href="{% url 'store' %}">Tiếp tục mua sắm</a>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Danh sách sản phẩm</h2>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4 d-flex justify-content-center">
+            <div class="card shadow-lg" style="width: 100%; max-width: 260px; border-radius: 15px;">
+                <a href="#" data-toggle="modal" data-target="#productModal{{ product.id }}">
+                    <img src="{{ product.imageURL }}" class="card-img-top rounded-top" alt="{{ product.name }}" style="height: 240px; object-fit: cover;">
+                </a>
+                <div class="card-body text-center">
+                    <h6 class="card-title font-weight-bold">
+                        <a href="#" data-toggle="modal" data-target="#productModal{{ product.id }}" style="text-decoration: none; color: #000;">
+                            {{ product.name }}
+                        </a>
+                    </h6>
+                    <hr>
+                    <button data-product="{{ product.id }}" data-action="add" class="btn btn-outline-success btn-sm update-cart">
+                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ
+                    </button>
+                    <h5 class="mt-2 text-danger font-weight-bold price-format">{{ product.price }}₫</h5>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>Không có sản phẩm nào.</p>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+<div class="modal fade" id="productModal{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="productModalLabel{{ product.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content" style="border-radius: 15px;">
+        <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title" id="productModalLabel{{ product.id }}" style="display: center; color: white;">Chi tiết sản phẩm</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+
+        <div class="modal-body">
+        <div class="row">
+            <!-- Hình ảnh -->
+            <div class="col-md-6 text-center">
+            <img src="{{ product.imageURL }}" class="img-fluid rounded" style="max-height: 300px; object-fit: cover;" alt="{{ product.name }}">
+            </div>
+
+            <!-- Thông tin -->
+            <div class="col-md-6">
+            <h4 class="text-primary font-weight-bold">{{ product.name }}</h4>
+            <p style="margin-top: 10px;">
+                <strong>Giá:</strong> 
+                <strong class="price-format text-danger" style="font-size: 20px; ">
+                    {{ product.price }}đ
+                </strong>
+            </p>
+                <p><strong>Mô tả: </strong> {{ product.description }}</p>
+            <p><strong>Số lượng: </strong> {{ product.quantity }}</p>
+
+            <!-- Chọn số lượng -->
+            <div class="d-flex align-items-center my-3">
+                <button class="btn btn-outline-secondary btn-sm quantity-btn" onclick="changeQty('{{ product.id }}', -1)">-</button>
+                <input id="qty-input-{{ product.id }}" type="number" value="1" min="1" class="form-control mx-2 text-center" style="width: 60px;">
+                <button class="btn btn-outline-secondary btn-sm quantity-btn" onclick="changeQty('{{ product.id }}', 1)">+</button>
+            </div>
+
+            <!-- Nút thêm vào giỏ -->
+            <button data-product="{{ product.id }}" data-action="add" class="btn btn-success update-cart" onclick="addWithQty('{{ product.id }}')">
+                <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
+            </button>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<script>
+// Hàm thay đổi số lượng
+function changeQty(productId, delta) {
+    const input = document.getElementById(`qty-input-${productId}`);
+    let current = parseInt(input.value);
+    if (!isNaN(current)) {
+    const newQty = Math.max(1, current + delta);
+    input.value = newQty;
+    }
+}
+
+// Gắn số lượng vào data-qty khi bấm "Thêm vào giỏ"
+function addWithQty(productId) {
+    const qty = parseInt(document.getElementById(`qty-input-${productId}`).value);
+    const btn = document.querySelector(`button[data-product="${productId}"][data-action="add"]`);
+    if (btn && qty > 0) {
+    btn.setAttribute('data-qty', qty);
+    }
+}
+</script>
